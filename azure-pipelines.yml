@@ -43,7 +43,7 @@ steps:
     sshEndpoint: 'AzureVM-SSH'
     sourceFolder: 'dist'
     contents: '**'
-    targetFolder: '/home/kkmail2027/react-dist'
+    targetFolder: '/var/www/reactapp'
     cleanTargetFolder: true
     overwrite: true
 
