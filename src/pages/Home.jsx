@@ -41,7 +41,7 @@ export default function Home() {
             <span className="badge rounded-pill bg-light text-dark mb-3 px-3 py-2">
               <i className="bi bi-stars me-1"></i>Real questions from real interviews
             </span>
-            <h1 className="mb-3">Crack your next tech interview with confidence.Bla Bla</h1>
+            <h1 className="mb-3">Crack your next tech interview with confidence.Bla Bla Bla</h1>
             <p className="lead mb-4 opacity-75">
               Browse interview questions asked at top companies, filtered by role and technology.
               Read expert answers, then join the discussion with comments and likes.
