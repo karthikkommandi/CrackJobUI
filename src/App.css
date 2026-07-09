@@ -1,0 +1,112 @@
+/* ---- Navbar ---- */
+.cj-navbar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid #ececf3;
+}
+.cj-navbar .navbar-brand { font-weight: 800; font-size: 1.35rem; }
+.cj-navbar .nav-link { color: #454b5e; font-weight: 500; border-radius: 8px; padding: 6px 12px; }
+.cj-navbar .nav-link:hover { color: var(--cj-indigo); background: var(--cj-grad-soft); }
+.cj-navbar .nav-link.active { color: var(--cj-indigo); background: var(--cj-grad-soft); }
+
+/* ---- Hero ---- */
+.cj-hero {
+  background: var(--cj-grad);
+  color: #fff;
+  border-radius: 26px;
+  padding: 64px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.cj-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 20%, rgba(255,255,255,0.25), transparent 45%);
+  pointer-events: none;
+}
+.cj-hero h1 { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; }
+
+/* ---- Cards ---- */
+.cj-card {
+  background: #fff;
+  border: 1px solid #ececf3;
+  border-radius: 18px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  height: 100%;
+}
+.cj-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -18px rgba(79, 70, 229, 0.45);
+  border-color: rgba(124, 58, 237, 0.35);
+}
+.cj-stat {
+  background: #fff;
+  border: 1px solid #ececf3;
+  border-radius: 18px;
+}
+.cj-stat .cj-stat-num { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 2rem; }
+
+/* ---- Badges / chips ---- */
+.cj-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--cj-grad-soft);
+  color: var(--cj-indigo);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+}
+.cj-chip.company { background: rgba(219,39,119,0.08); color: var(--cj-pink); border-color: rgba(219,39,119,0.18); }
+.cj-chip.role    { background: rgba(5,150,105,0.08); color: #059669; border-color: rgba(5,150,105,0.18); }
+
+/* ---- Like button ---- */
+.cj-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e2e2ec;
+  background: #fff;
+  color: #6b7280;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.cj-like:hover { border-color: var(--cj-pink); color: var(--cj-pink); }
+.cj-like.liked { background: rgba(219,39,119,0.1); color: var(--cj-pink); border-color: var(--cj-pink); }
+.cj-like:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ---- Comments ---- */
+.cj-comment {
+  background: #fff;
+  border: 1px solid #ececf3;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.cj-comment .cj-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--cj-grad); color: #fff; font-weight: 700; flex: 0 0 auto;
+}
+.cj-reply { margin-left: 46px; }
+
+/* ---- Answer block ---- */
+.cj-answer {
+  background: #fff;
+  border: 1px solid #ececf3;
+  border-left: 4px solid var(--cj-indigo);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+/* ---- Misc ---- */
+.cj-section-title { font-weight: 700; font-family: 'Sora', sans-serif; }
+.cj-page { max-width: 1120px; }
+.cursor-pointer { cursor: pointer; }
+.cj-filter-active { box-shadow: 0 0 0 2px var(--cj-indigo) inset; }

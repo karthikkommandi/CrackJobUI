@@ -1,0 +1,54 @@
+/* CrackJobs theme — a light layer on top of Bootstrap 5.
+   Brand accent is an indigo→violet gradient. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
+
+:root {
+  --cj-indigo: #4f46e5;
+  --cj-violet: #7c3aed;
+  --cj-pink: #db2777;
+  --cj-grad: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #db2777 120%);
+  --cj-grad-soft: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(124, 58, 237, 0.08));
+  --cj-ink: #1e2233;
+  --cj-muted: #6b7280;
+  --cj-bg: #f6f7fb;
+  --bs-body-font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100vh;
+}
+
+body {
+  background: var(--cj-bg);
+  color: var(--cj-ink);
+  font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+h1, h2, h3, .display-1, .display-4, .display-5, .navbar-brand {
+  font-family: 'Sora', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+a { text-decoration: none; }
+
+/* Utility: brand gradient text + surfaces */
+.text-gradient {
+  background: var(--cj-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.bg-brand-grad { background: var(--cj-grad); }
+.btn-brand {
+  background: var(--cj-grad);
+  border: none;
+  color: #fff;
+}
+.btn-brand:hover { color: #fff; filter: brightness(1.07); }
+.btn-outline-brand {
+  border: 1.5px solid var(--cj-indigo);
+  color: var(--cj-indigo);
+  background: transparent;
+}
+.btn-outline-brand:hover { background: var(--cj-indigo); color: #fff; }
