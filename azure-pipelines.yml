@@ -1,0 +1,63 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- checkout: self
+
+# Install Node.js
+- task: NodeTool@0
+  displayName: 'Install Node.js'
+  inputs:
+    versionSpec: '22.x'
+
+# Install packages
+- script: |
+    npm install
+  displayName: 'Install Dependencies'
+
+# Build React
+- script: |
+    npm run build
+  displayName: 'Build React'
+
+# Publish Artifact
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish UI Artifact'
+  inputs:
+    pathToPublish: 'dist'
+    artifactName: 'ReactUI'
+
+# Copy files to VM
+- task: CopyFilesOverSSH@0
+  displayName: 'Deploy React to VM'
+  inputs:
+    sshEndpoint: 'AzureVM-SSH'
+    sourceFolder: 'dist'
+    contents: '**'
+    targetFolder: '/home/kkmail2027/react-dist'
+    cleanTargetFolder: true
+    overwrite: true
+
+# Verify deployment
+- task: SSH@0
+  displayName: 'Verify Deployment'
+  inputs:
+    sshEndpoint: 'AzureVM-SSH'
+    runOptions: 'inline'
+    failOnStdErr: false
+    inline: |
+      if [ -f /home/kkmail2027/react-dist/index.html ]; then
+          echo "React deployed successfully."
+      else
+          echo "Deployment failed."
+          exit 1
+      fi
