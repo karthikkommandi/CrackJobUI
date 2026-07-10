@@ -21,11 +21,28 @@ steps:
   inputs:
     versionSpec: '$(nodeVersion)'
 
-# Install dependencies
+#Temp Steps
+- script: |
+    echo "Current directory:"
+    pwd
+
+    echo ""
+    echo "Repository contents:"
+    ls -la
+
+    echo ""
+    echo "Looking for package.json..."
+    find . -name package.json
+  displayName: 'Verify Repository Structure'
+  #TEMP END
+
 - script: |
     npm install
-  workingDirectory: 'CrackJobUI'
   displayName: 'Install NPM Packages'
+
+- script: |
+    npm run build
+  displayName: 'Build React Application'
 
 # Build React
 - script: |
