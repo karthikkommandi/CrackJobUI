@@ -11,68 +11,37 @@ variables:
 
 steps:
 
+#---------------------------------------
 # Checkout
+#---------------------------------------
 - checkout: self
   clean: true
 
-# TEMP
-- script: |
-    echo "Current Directory"
-    pwd
-
-    echo ""
-    echo "Files at repository root"
-    ls -la
-
-    echo ""
-    echo "Searching for package.json..."
-    find . -name package.json
-
-    echo ""
-    echo "Searching for vite.config.*..."
-    find . -name "vite.config.*"
-
-    echo ""
-    echo "Searching for Dockerfile..."
-    find . -name Dockerfile
-  displayName: 'Show Repository Structure'
-
+#---------------------------------------
 # Install Node.js
+#---------------------------------------
 - task: NodeTool@0
   displayName: 'Install Node.js'
   inputs:
     versionSpec: '$(nodeVersion)'
 
-#Temp Steps
-- script: |
-    echo "Current directory:"
-    pwd
-
-    echo ""
-    echo "Repository contents:"
-    ls -la
-
-    echo ""
-    echo "Looking for package.json..."
-    find . -name package.json
-  displayName: 'Verify Repository Structure'
-  #TEMP END
-
+#---------------------------------------
+# Install Dependencies
+#---------------------------------------
 - script: |
     npm install
   displayName: 'Install NPM Packages'
 
-- script: |
-    npm run build
-  displayName: 'Build React Application'
-
+#---------------------------------------
 # Build React
+#---------------------------------------
 - script: |
     npm run build
-  workingDirectory: 'CrackJobUI'
   displayName: 'Build React Application'
 
+#---------------------------------------
 # Deploy to Azure VM
+#---------------------------------------
 - task: SSH@0
   displayName: 'Deploy React Docker Container'
   inputs:
@@ -80,40 +49,72 @@ steps:
     runOptions: 'inline'
     readyTimeout: '20000'
     inline: |
+
       set -e
 
-      echo "Moving to UI repository..."
-      cd /home/kkmail2027/git-source/UI-code
+      echo "========================================"
+      echo "Moving to React repository"
+      echo "========================================"
+
+      cd /home/kkmail2027/git-source/UI-code/CrackJobUI
+
+      echo "========================================"
+      echo "Reset Local Repository"
+      echo "========================================"
 
       git reset --hard HEAD
       git clean -fd
 
-      echo "Pulling latest code..."
+      echo "========================================"
+      echo "Pull Latest Code"
+      echo "========================================"
+
       git pull
 
-      cd CrackJobUI
+      echo "========================================"
+      echo "Build Docker Image"
+      echo "========================================"
 
-      echo "Building Docker image..."
       docker build -t crackjobs-ui:latest .
 
-      echo "Stopping old container..."
+      echo "========================================"
+      echo "Stop Existing Container"
+      echo "========================================"
+
       docker stop crackjobs-ui || true
 
-      echo "Removing old container..."
+      echo "========================================"
+      echo "Remove Existing Container"
+      echo "========================================"
+
       docker rm crackjobs-ui || true
 
-      echo "Starting new container..."
+      echo "========================================"
+      echo "Run New Container"
+      echo "========================================"
+
       docker run -d \
         --name crackjobs-ui \
         --restart unless-stopped \
         -p 3000:80 \
         crackjobs-ui:latest
 
-      echo "Waiting for container..."
-      sleep 10
+      echo "Waiting for application..."
+      sleep 15
 
-      echo "Checking UI..."
-      curl -fsS http://localhost:3000
+      echo "========================================"
+      echo "Running Containers"
+      echo "========================================"
+
+      docker ps
+
+      echo "========================================"
+      echo "Health Check"
+      echo "========================================"
+
+      curl -fsS http://localhost:3000 > /dev/null
 
       echo ""
+      echo "========================================"
       echo "React Deployment Successful"
+      echo "========================================"
