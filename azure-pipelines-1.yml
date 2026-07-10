@@ -15,6 +15,28 @@ steps:
 - checkout: self
   clean: true
 
+# TEMP
+- script: |
+    echo "Current Directory"
+    pwd
+
+    echo ""
+    echo "Files at repository root"
+    ls -la
+
+    echo ""
+    echo "Searching for package.json..."
+    find . -name package.json
+
+    echo ""
+    echo "Searching for vite.config.*..."
+    find . -name "vite.config.*"
+
+    echo ""
+    echo "Searching for Dockerfile..."
+    find . -name Dockerfile
+  displayName: 'Show Repository Structure'
+
 # Install Node.js
 - task: NodeTool@0
   displayName: 'Install Node.js'
